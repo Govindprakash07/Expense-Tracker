@@ -1,0 +1,44 @@
+const express = require("express");
+const Expense = require("../models/Expense");
+
+const router = express.Router();
+
+// Show All Expenses
+router.get("/", async (req, res) => {
+    const expenses = await Expense.find();
+    res.render("index", { expenses });
+});
+
+// Add Expense Page
+router.get("/add", (req, res) => {
+    res.render("addExpense");
+});
+
+// Handle Add Expense
+router.post("/add", async (req, res) => {
+    const { name, amount } = req.body;
+    const newExpense = new Expense({ name, amount });
+    await newExpense.save();
+    res.redirect("/");
+});
+
+// Edit Expense Page
+router.get("/edit/:id", async (req, res) => {
+    const expense = await Expense.findById(req.params.id);
+    res.render("editExpense", { expense });
+});
+
+// Handle Edit Expense
+router.post("/edit/:id", async (req, res) => {
+    const { name, amount } = req.body;
+    await Expense.findByIdAndUpdate(req.params.id, { name, amount });
+    res.redirect("/");
+});
+
+// Delete Expense
+router.get("/delete/:id", async (req, res) => {
+    await Expense.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+});
+
+module.exports = router;
