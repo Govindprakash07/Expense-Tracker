@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Expense</title>
+</head>
+<body>
+    <h1>Edit Expense</h1>
+    <form action="/edit/<%= expense._id %>" method="POST">
+        <input type="text" name="name" value="<%= expense.name %>" required>
+        <input type="number" name="amount" value="<%= expense.amount %>" required>
+        <button type="submit">Update Expense</button>
+    </form>
+    <a href="/">⬅️ Back to Expenses</a>
+</body>
+</html>
