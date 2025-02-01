@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <h1>💰 Expense Tracker</h1>
+    <a href="/add">➕ Add New Expense</a>
+    <div class="expenses">
+        <% expenses.forEach(expense => { %>
+            <div class="expense">
+                <h2><%= expense.name %></h2>
+                <p>Amount: $<%= expense.amount %></p>
+                <p>Date: <%= expense.date.toDateString() %></p>
+                <a href="/edit/<%= expense._id %>">✏️ Edit</a>
+                <a href="/delete/<%= expense._id %>" onclick="return confirm('Are you sure?')">❌ Delete</a>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>
